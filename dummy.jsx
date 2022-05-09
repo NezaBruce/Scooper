@@ -1,63 +1,59 @@
-import React, { useState, useEffect } from 'react';
-import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
+import React from 'react';
+import { useRouter } from 'next/router';
 
-import { FeaturedPostCard } from '../components';
-import { getFeaturedPosts } from '../services';
+import { PostDetail, Categories, PostWidget, Author, Comments, CommentsForm, Loader } from '../../components';
+import { getPosts, getPostDetails } from '../../services';
+import { AdjacentPosts } from '../../sections';
 
-const responsive = {
-  superLargeDesktop: {
-    breakpoint: { max: 4000, min: 1024 },
-    items: 5,
-  },
-  desktop: {
-    breakpoint: { max: 1024, min: 768 },
-    items: 3,
-  },
-  tablet: {
-    breakpoint: { max: 768, min: 640 },
-    items: 2,
-  },
-  mobile: {
-    breakpoint: { max: 640, min: 0 },
-    items: 1,
-  },
-};
+const PostDetails = ({ post }) => {
+  const router = useRouter();
 
-const FeaturedPosts = () => {
-  const [featuredPosts, setFeaturedPosts] = useState([]);
-  const [dataLoaded, setDataLoaded] = useState(false);
-
-  useEffect(() => {
-    getFeaturedPosts().then((result) => {
-      setFeaturedPosts(result);
-      setDataLoaded(true);
-    });
-  }, []);
-
-  const customLeftArrow = (
-    <div className="absolute arrow-btn left-0 text-center py-3 cursor-pointer bg-pink-600 rounded-full">
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white w-full" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-      </svg>
-    </div>
-  );
-
-  const customRightArrow = (
-    <div className="absolute arrow-btn right-0 text-center py-3 cursor-pointer bg-pink-600 rounded-full">
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white w-full" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-      </svg>
-    </div>
-  );
+  if (router.isFallback) {
+    return <Loader />;
+  }
 
   return (
-    <div className="mb-8">
-      <Carousel infinite customLeftArrow={customLeftArrow} customRightArrow={customRightArrow} responsive={responsive} itemClass="px-4">
-        {dataLoaded && featuredPosts.map((post, index) => (
-          <FeaturedPostCard key={index} post={post} />
-        ))}
-      </Carousel>
-    </div>
+    <>
+      <div className="container mx-auto px-10 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          <div className="col-span-1 lg:col-span-8">
+            <PostDetail post={post} />
+            <Author author={post.author} />
+            <AdjacentPosts slug={post.slug} createdAt={post.createdAt} />
+            <CommentsForm slug={post.slug} />
+            <Comments slug={post.slug} />
+          </div>
+          <div className="col-span-1 lg:col-span-4">
+            <div className="relative lg:sticky top-8">
+              <PostWidget slug={post.slug} categories={post.categories.map((category) => category.slug)} />
+              <Categories />
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
+export default PostDetails;
+
+// Fetch data at build time
+export async function getStaticProps({ params }) {
+  const data = await getPostDetails(params.slug);
+  const comments=await getComments(params.slug);
+  return {
+    props: {
+      post: data,
+      comments:comments
+    },
+  };
+}
+
+// Specify dynamic routes to pre-render pages based on data.
+// The HTML is generated at build time and will be reused on each request.
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return {
+    paths: posts.map(({ node: { slug } }) => ({ params: { slug } })),
+    fallback: true,
+  };
+}

@@ -1,12 +1,11 @@
-// import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
 import {PostCard,PostWidget,Categories} from '../components';
-// import {FeaturedPosts} from '../sections';
 import FeaturedPosts from '../sections/FeaturedPosts';
 import {getPosts} from '../services';
+import Header from '../components/Header';
 export default function Home({posts}) {
   return (
+    <>
+    <Header/>
     <div className="container mx-auto px-10 mb-8">
    <FeaturedPosts />
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
@@ -23,6 +22,7 @@ export default function Home({posts}) {
         </div>
       </div>
     </div>
+    </>
   )
 }
 // export default Home;

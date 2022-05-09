@@ -33,38 +33,72 @@ export const getPosts=async()=>{
     const resutl=await request(graphqlAPI,query);
     return resutl.postsConnection.edges;
 }
-export const getPostsDetails=async(slug)=>{
-    const query= gql`
-    query GetPostDetails($slug:String!) {
-        post (where:{slug:$slug}){
-              author {
-                bio
-                name
-                id
-                photo {
-                  url
-                }
-              }
-              createdAt
-              slug
-              title
-              excerpt
-              featuredImage {
-                url
-              }
-              categories {
-                name
-                slug
-              }
-              content{
-                raw
-              }
-            }
-          }     
-    `
-    const resutl=await request(graphqlAPI,query,{slug});
-    return resutl.postsConnection.edges;
-}
+export const getPostsDetails = async (slug) => {
+  const query = gql`
+    query GetPostDetails($slug : String!) {
+      post(where: {slug: $slug}) {
+        title
+        excerpt
+        featuredImage {
+          url
+        }
+        author{
+          name
+          bio
+          photo {
+            url
+          }
+        }
+        createdAt
+        slug
+        content {
+          raw
+        }
+        categories {
+          name
+          slug
+        }
+      }
+    }
+  `;
+
+  const result = await request(graphqlAPI, query, { slug });
+
+  return result.post;
+};
+// export const getPostsDetails=async(slug)=>{
+//     const query= gql`
+//     query GetPostDetails($slug:String!) {
+//         post (where:{slug:$slug}){
+//               author {
+//                 bio
+//                 name
+//                 id
+//                 photo {
+//                   url
+//                 }
+//               }
+//               createdAt
+//               slug
+//               title
+//               excerpt
+//               featuredImage {
+//                 url
+//               }
+//               categories {
+//                 name
+//                 slug
+//               }
+//               content{
+//                 raw
+//               }
+//             }
+//           }     
+//     `
+//     const resutl=await request(graphqlAPI,query,{slug});
+//     // return resutl.postsConnection.edges;
+//     return resutl.post;
+// }
 export const getRecentPosts=async ()=>{
     const query=gql`
     query GetRecentPost(){
