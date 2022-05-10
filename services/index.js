@@ -61,9 +61,7 @@ export const getPostsDetails = async (slug) => {
       }
     }
   `;
-
   const result = await request(graphqlAPI, query, { slug });
-
   return result.post;
 };
 // export const getPostsDetails=async(slug)=>{
@@ -172,6 +170,16 @@ export const getCategories=async ()=>{
     `
     const resutl=await request(graphqlAPI,query);
     return resutl.categories;
+}
+export const SubmitComment=async(obj)=>{
+  const resutl=await fetch('/api/comment',{
+    method:"POST",
+    headers:{
+      'Content-Type':'application/json'
+    },
+    body:JSON.stringify(obj),
+  })
+  return resutl.json();
 }
 export const getComments = async (slug) =>{
   const query = gql`

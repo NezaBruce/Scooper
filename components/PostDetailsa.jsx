@@ -1,10 +1,11 @@
 import React from 'react'
 import moment from 'moment'
 
-const PostDetails = ({post}) => {
+const PostDetailsa = ({post}) => {
+    console.log(post);
     const getContentFragment=(index,text,obj,type)=>{
         let modifiedText=text;
-        if(bj){
+        if(obj){
             if(obj.bold){
                 modifiedText=(<b key={index}>{text}</b>);
             }
@@ -71,5 +72,4 @@ const PostDetails = ({post}) => {
     </>
   )
 }
-
-export default PostDetails
+export default PostDetailsa
