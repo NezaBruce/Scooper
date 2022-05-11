@@ -1,7 +1,7 @@
 import React from 'react'
 import {useRouter} from 'next/router';
 import PostWidget from '../../components/PostWidget';
-import { Categories } from '../../components';
+// import { Categories } from '../../components';
 import { getPosts, getPostsDetails } from '../../services';
 import CommentsForm from '../../components/CommentsForm';
 import Loader from '../../components/Loader';
@@ -29,7 +29,7 @@ const PostDetails = ({post}) => {
         <div className="col-span-1 lg:col-span-4">
            <div className="relative lg:sticky top-8">
             <PostWidget slug={post.slug} categories={post.categories.map((category)=>category.slug)}/>
-            <Categories/>
+            {/* <Categories/> */}
            </div>
         </div>
       </div>
