@@ -22,7 +22,8 @@ const Categories = () => {
        </div>
        <div className="col-span-1 lg:col-span-4">
        <div className="relative lg:sticky top-8">
-        <Categories/>
+        {/* <Categories/> */}
+        Below
        </div>
       </div>
     </div>
