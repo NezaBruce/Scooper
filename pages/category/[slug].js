@@ -3,6 +3,7 @@ import useRouter from 'next/router';
 import Loader from '../../components/Loader';
 // import AdjacentPosts from '../../sections/AdjacentPosts';
 import { getCategories } from '../../services';
+import { getCategoryPost } from '../../services';
 import { PostCard } from '../../components';
 const Categories = ({posts}) => {
   const router=useRouter()
