@@ -27,9 +27,8 @@ const Categories = () => {
       </div>
     </div>
     </div>
-  )
+    )
 }
-
 export default Categories;
 // export async function getStaticProps({ params }) {
 //   const posts = await getCategoryPost(params.slug);
