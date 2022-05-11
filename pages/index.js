@@ -1,4 +1,6 @@
-import {PostCard,PostWidget,Categories} from '../components';
+import PostCard from '../components/PostCard';
+import PostWidget from '../components/PostWidget';
+import Categories from '../components/Categories';
 import FeaturedPosts from '../sections/FeaturedPosts';
 import {getPosts} from '../services';
 import Header from '../components/Header';
@@ -25,7 +27,6 @@ export default function Home({posts}) {
     </>
   )
 }
-// export default Home;
 export async function getStaticProps(){
 const posts=(await getPosts()) || [];
 return {
