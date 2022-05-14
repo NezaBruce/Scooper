@@ -45,6 +45,7 @@ const CommentsForm = ({slug}) => {
       localStorage.removeItem("name");
       localStorage.removeItem("email");
     }
+
     SubmitComment(commentObj)
     .then((res)=>{
       if(res.createComment){
@@ -64,6 +65,8 @@ const CommentsForm = ({slug}) => {
       }
     })
   }
+  // value={formData.name}
+  // value={formData.email}
   return (
     <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8">
         <h3 className="text-xl font-semibold mb-8 border-b border-red-700 pb-4">Leave a reply</h3>
@@ -71,8 +74,8 @@ const CommentsForm = ({slug}) => {
           <textarea value={formData.message} onChange={onInputChange} className="p-4 outline-none w-full rounded-lg focus:ring-2 focus:ring-gray-400 bg-gray-100 text-gray-700" name="comment" placeholder="Comment" id="" cols="30" rows="10"/>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
-          <input type="text" onChange={onInputChange} value={formData.name} className="py-2 px-4 outline-none w-full rounded-lg focus:ring-2 focus:ring-gray-400 bg-gray-100 text-gray-700" placeholder="Name" name="name"/>
-          <input type="text" onChange={onInputChange} value={formData.email} className="py-2 px-4 outline-none w-full rounded-lg focus:ring-2 focus:ring-gray-400 bg-gray-100 text-gray-700" placeholder="Email" name="email"/>
+          <input type="text" onChange={onInputChange} className="py-2 px-4 outline-none w-full rounded-lg focus:ring-2 focus:ring-gray-400 bg-gray-100 text-gray-700" placeholder="Name" name="name"/>
+          <input type="text" onChange={onInputChange} className="py-2 px-4 outline-none w-full rounded-lg focus:ring-2 focus:ring-gray-400 bg-gray-100 text-gray-700" placeholder="Email" name="email"/>
         </div>
         <div className="grid grid-cols-1 gap-4 mb-4">
           <div>

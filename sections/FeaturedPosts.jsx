@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
-import { FeaturedPostCard } from '../components';
+import FeaturedPostCard from '../components/FeaturedPostCard';
 import { getFeaturedPosts } from '../services';
 
 const responsive={
@@ -29,9 +29,9 @@ const FeaturedPosts = () => {
 
     useEffect(()=>{
         getFeaturedPosts().then((result)=>{
-          setfeaturedPosts(result);
           console.log(result);
           setdataLoaded(true)
+          setfeaturedPosts(result);
         });
     },[]);
     const customLeftArrow=(

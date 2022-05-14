@@ -1,4 +1,6 @@
 import {request,gql} from 'graphql-request';
+// const TOoken=process.env.token;
+// console.log("THIs is my token : "+TOoken);
 const graphqlAPI="https://api-eu-central-1.graphcms.com/v2/cl2nsqk0b307x01z453bcbqrq/master";
 export const getPosts=async()=>{
     const query= gql`
@@ -201,9 +203,7 @@ export const getAdjacentPosts = async (createdAt, slug) => {
       }
     }
   `;
-
   const result = await request(graphqlAPI, query, { slug, createdAt });
-
   return { next: result.next[0], previous: result.previous[0] };
 };
 export const SubmitComment=async(obj)=>{
