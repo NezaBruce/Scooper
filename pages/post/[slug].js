@@ -4,7 +4,7 @@ import PostWidget from '../../components/PostWidget';
 import { getPosts, getPostsDetails } from '../../services';
 import CommentsForm from '../../components/CommentsForm';
 import Loader from '../../components/Loader';
-import PostDetailsa from '../../components/PostDetailsa';
+// import PostDetailsa from '../../components/PostDetailsa';
 import Author from '../../components/Author';
 import Comments from '../../components/Comments';
 import AdjacentPosts from '../../sections/AdjacentPosts';

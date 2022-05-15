@@ -32,4 +32,11 @@ const posts=(await getPosts()) || [];
 return {
   props:{posts},
 };
-}
+};
+export async function getStaticPaths(){
+  const posts=await getPosts();
+  return{
+      paths:posts.map(({node:{slug}})=>({params:{slug}})),
+      fallback:true
+  }
+  }
